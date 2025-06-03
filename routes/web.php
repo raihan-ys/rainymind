@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     PostController
 };
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Unused Routes
+Auth::routes(['register' => false, 'reset' => false]);
 
 // Home Routes
 Route::get('/', function () { return view('pages/home'); });
