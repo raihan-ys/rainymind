@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use App\Models\Categories;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,7 +15,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
+        // Fetch posts with their categories and user information
+        $posts = Post::join('categories', 'posts.category_id', '=', 'categories.id')
+            ->join('users as created_by', 'posts.created_by', '=', 'created_by.id')
+            ->select('posts.*', 'categories.name as category_name', 
+                'created_by.name as created_by_name', 
+                'updated_by.name as updated_by_name')
+            ->orderBy('posts.created_at', 'desc')
+            ->paginate(10);
+        
         return view('posts.index', compact('posts'));
     }
 
@@ -21,20 +32,22 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        // Fetch categories for the dropdown
+        $categories = Categories::orderBy('name')->get();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'content'  => 'required',
-        ]);
-        Post::create($request->only('title','content'));
-        return redirect()->route('posts.index');
+        // Validate the request using the StorePostRequest
+        $validated = $request->validated();
+        $post = Post::create($validated);
+        $id = $post->id;
+        return redirect()->route('posts.show', $id)->with('success', 'Post created successfully!');
     }
 
     /**
@@ -52,21 +65,20 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        $categories = Categories::orderBy('name')->get();
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePostRequest $request, string $id)
     {
         $post = Post::findOrFail($id);
-        $request->validate([
-            'title' => 'required|max:255',
-            'content'  => 'required',
-        ]);
-        $post->update($request->only('title','content'));
-        return redirect()->route('posts.index');
+        $validated = $request->validated();
+        $post->update($validated);
+        $id = $post->id;
+        return redirect()->route('posts.show', $id)->with('success', 'Post updated successfully!');
     }
 
     /**

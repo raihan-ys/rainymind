@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Write Post')
+@section('css')
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/45.2.0/ckeditor5.css"/>
+@endsection
 
 @section('content')
 	<h1>Write Post</h1>
@@ -8,10 +11,11 @@
 		<div class="mb-3">
 			<label for="title" class="form-label">Title</label>
 			<input type="text" class="form-control" id="title" name="title" required>
+			
 		</div>
 		<div class="mb-3">
 			<label for="content" class="form-label">Content</label>
-			<textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+			<textarea class="form-control" id="content" name="content" required></textarea>
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
@@ -19,7 +23,7 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('libs/ckeditor5/dist/ckeditor5.js') }}"></script>
+<script src="{{ asset('libs/ckeditor5/ckeditor.js') }}"></script>
 <script>
 	ClassicEditor
 		.create(document.getElementById('content'), {
@@ -32,6 +36,6 @@
 		})
 		.catch(error => {
 			console.log(error)
-		})
+		});
 </script>
 @endsection

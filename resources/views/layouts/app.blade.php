@@ -13,8 +13,19 @@
 		<!-- navbar -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
 			<div class="container">
-				<a class="navbar-brand" href="{{ route('posts.index') }}">RainyMind</a>
-				<a class="btn btn-primary" href="{{ route('posts.create') }}">New Post</a>
+				<a class="navbar-brand" href="{{ route('home') }}">RainyMind</a>
+				@guest
+					<a class="btn btn-outline-primary" href="{{ route('login') }}">
+						<i class="fas fa-key"></i> Login
+					</a>
+				@else
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+						@csrf
+						<button type="submit" class="btn btn-danger">
+							<i class="fas fa-power-off"></i> Logout
+						</button>
+					</form>
+				@endguest
     	</div>
 		</nav>
 
@@ -23,7 +34,9 @@
 			@yield('content')
 		</div>
 
-		<!-- scripts -->
+		{{-- jQuery JS --}}
+    <script src="{{ asset('libs/jquery/dist/jquery.min.js') }}"></script>
+		{{-- Bootstrap JS --}}
 		<script src="{{ asset('libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 		@yield('js')
 	</body>

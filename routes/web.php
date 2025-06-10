@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\{
     AIController,
+    HomeController,
     PostController
 };
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;   
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,21 +20,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Unused Routes
-Auth::routes(['register' => false, 'reset' => false]);
+Auth::routes(['register' => true, 'reset' => false]);
 
 // Home Routes
-Route::get('/', function () { return view('pages/home'); });
-Route::get('/home', function () { return view('pages/home'); });
+Route::resource('/', HomeController::class)->name('index', 'home');
+Route::resource('home', HomeController::class)->name('index', 'home');
 
 // Post Routes
 Route::prefix('posts')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/{post}', [PostController::class, 'show'])->name('posts.show');
-    Route::get('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/{post}/update', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/{post}/delete', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::middleware('auth')->group(function () {
+        Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+        Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+        Route::get('/{posts}', [PostController::class, 'show'])->name('posts.show');
+        Route::get('/{posts}/edit', [PostController::class, 'edit'])->name('posts.edit');
+        Route::put('/{posts}/update', [PostController::class, 'update'])->name('posts.update');
+        Route::delete('/{posts}/delete', [PostController::class, 'destroy'])->name('posts.destroy');
+    });
 });
 
 // AI Chat Routes

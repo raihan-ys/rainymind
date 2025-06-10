@@ -1,57 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="RainyMind - AI blog application">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Home - {{ config('app.name', 'RainyMind') }}</title>
-        {{-- Bootstrap CSS --}}
-        <link rel="stylesheet" href="{{ asset('libs/bootstrap/dist/css/bootstrap.min.css') }}">
-        {{-- Custom CSS --}}
-        <style>
-            #raindropContainer {
-                height: 100%;
-                left: 0;
-                pointer-events: none;
-                position: fixed;
-                top: 0;
-                width: 100%;
-                z-index: 999;
+@extends('layouts.app')
+@section('title', 'Home')
+
+@section('css')
+    {{-- Custom CSS --}}
+    <style>
+        #raindropContainer {
+            height: 100%;
+            left: 0;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        .raindrop {
+            animation: fall linear infinite;
+            border-radius: 3px;
+            bottom: 100%;
+            height: 5px;
+            position: absolute;
+            width: 5px;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
             }
-            .raindrop {
-                animation: fall linear infinite;
-                border-radius: 3px;
-                bottom: 100%;
-                height: 5px;
-                position: absolute;
-                width: 5px;
-            }
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh);
-                }
-            }
-        </style>
-    </head>
+        }
+    </style>
+@endsection
+
+@section('content')
     {{-- AI Chat Widget --}}
     <div id="chat-widget" style="position:fixed; bottom:20px; right:20px; width:300px;">
         <div id="chat-box" class="border rounded p-2 bg-white" style="height:400px; overflow-y:auto;"></div>
         <input id="chat-input" class="form-control" placeholder="Ask me…">
     </div>
-    <body>
-        {{-- Raindrop Container --}}
-        <div id="raindropContainer"></div>
-    </body>
-    {{-- jQuery JS --}}
-    <script src="{{ asset('libs/jquery/dist/jquery.min.js') }}"></script>
+
+    {{-- Raindrop Container --}}
+    <div id="raindropContainer"></div>
+@endsection
+
+@section('js')
+    {{-- Custom JS --}}
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         })
-
         $(document).ready(function() {
             // Generate raindrops
             const RAINDROP_CONTAINER = $('#raindropContainer');
@@ -93,4 +89,4 @@
             })
         });
     </script>
-</html>
+@endsection

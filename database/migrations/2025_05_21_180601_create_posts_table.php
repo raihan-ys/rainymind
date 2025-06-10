@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->timestamps();
+
+            // Ensure InnoDB engine.
+            $table->engine = 'InnoDB';
         });
     }
 

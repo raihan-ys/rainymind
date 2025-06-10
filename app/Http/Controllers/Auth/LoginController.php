@@ -21,11 +21,40 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Get the login username to be used by the controller.
      *
-     * @var string
+     * @return string
      */
-    protected $redirectTo = '/home';
+    public function username()
+    {
+        return 'username';
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(\Illuminate\Http\Request $request)
+    {
+        $login = $request->input('username');
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        return [
+            $field => $login,
+            'password' => $request->input('password'),
+        ];
+    }
+
+    /**
+     * Get the post-login redirect path.
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        return 'home';
+    }
 
     /**
      * Create a new controller instance.
@@ -34,7 +63,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+        
     }
 }
