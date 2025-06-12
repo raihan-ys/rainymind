@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -12,6 +12,15 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Category::create(['name' => 'News']);
+        Category::create(['name' => 'Guide']);
+        Category::create(['name' => 'Infographic']);
+        Category::create(['name' => 'Interview']);
+        Category::create(['name' => 'Comparison']);
+        Category::create(['name' => 'Business']);
+        Category::create(['name' => 'Opinion']);
+        Category::create(['name' => 'Review']);
+        Category::create(['name' => 'Analysis']);
+        Category::create(['name' => 'Feature']);
     }
 }

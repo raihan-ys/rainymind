@@ -34,6 +34,15 @@ class UsersTableSeeder extends Seeder
 				'role' => 'member',
 				'created_at' => now(),
 			],
+			[
+				'name' => 'User 3',
+				'username' => 'user3',
+				'email' => 'user3@gmail.com',
+				'birthdate' => '1993-03-03',
+				'password' => Hash::make('password123'),
+				'role' => 'member',
+				'created_at' => now(),
+			]
     ]);
   }
 }

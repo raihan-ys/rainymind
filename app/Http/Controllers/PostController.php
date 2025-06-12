@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -33,7 +33,7 @@ class PostController extends Controller
     public function create()
     {
         // Fetch categories for the dropdown
-        $categories = Categories::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
 
         return view('posts.create', compact('categories'));
     }
@@ -71,7 +71,7 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
-        $categories = Categories::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
         return view('posts.edit', compact('post', 'categories'));
     }
 

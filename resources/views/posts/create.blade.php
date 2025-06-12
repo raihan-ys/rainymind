@@ -27,6 +27,20 @@
 	<form action="{{ route('posts.store') }}" method="POST">
 		@csrf
 		<div class="mb-3">
+
+			{{-- created by --}}
+			<input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
+
+	 		{{-- category --}}	
+			<label for="category">Category</label>
+			<select class="form-select" id="category" name="category_id" required>
+				<option value="">Select Category</option>
+				@foreach($categories as $category)
+					<option value="{{ $category->id }}">{{ $category->name }}</option>
+				@endforeach
+			</select>
+				
+			{{-- title --}}
 			<label for="title" class="form-label">Title</label>
 			<input type="text" class="form-control" id="title" name="title" required>
 			@if($errors->has('title'))
