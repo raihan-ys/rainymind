@@ -7,13 +7,17 @@
 		<title>@yield('title') - {{ config('app.name', 'RainyMind') }}</title>
 		{{-- Bootstrap CSS --}}
 		<link href="{{ asset('libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+		{{-- Font Awesome js --}}
+		<script src="https://kit.fontawesome.com/fe53c6a58c.js" crossorigin="anonymous"></script>
 		@yield('css')
 	</head>
 	<body>
 		<!-- navbar -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
 			<div class="container">
-				<a class="navbar-brand" href="{{ route('home') }}">RainyMind</a>
+				<a class="navbar-brand" href="{{ route('home') }}">
+					RainyMind
+				</a>
 				@guest
 					<a class="btn btn-outline-primary" href="{{ route('login') }}">
 						<i class="fas fa-key"></i> Login

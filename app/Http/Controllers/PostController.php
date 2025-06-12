@@ -45,8 +45,14 @@ class PostController extends Controller
     {
         // Validate the request using the StorePostRequest
         $validated = $request->validated();
-        $post = Post::create($validated);
-        $id = $post->id;
+
+        // Create new post with the validated data
+        try {
+            $post = Post::create($validated);
+            $id = $post->id;
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        }
         return redirect()->route('posts.show', $id)->with('success', 'Post created successfully!');
     }
 

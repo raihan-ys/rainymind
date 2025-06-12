@@ -6,15 +6,47 @@
 
 @section('content')
 	<h1>Write Post</h1>
+
+	{{-- error messages --}}
+	@if($errors->any())
+		<div class="alert mt-1" style="background-color: bg-danger">
+			<span class="float-right text-white" id="closeAlert" style="cursor: pointer">&times;</span>
+			<strong class="text-white">
+				<i class="fas fa-exclamation-triangle"></i> 
+				Terjadi Kesalahan!
+			</strong><hr>
+			<ul>
+				@foreach($errors->all() as $error)
+					<li class="text-white">{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
+	{{-- /.error messages --}}
+	
 	<form action="{{ route('posts.store') }}" method="POST">
 		@csrf
 		<div class="mb-3">
 			<label for="title" class="form-label">Title</label>
 			<input type="text" class="form-control" id="title" name="title" required>
+			@if($errors->has('title'))
+				{{-- error message --}}
+				<span class="text-danger">
+					{{ $errors->first('title') }}
+				</span>
+			@endif
 		</div>
+
+		{{-- content --}}
 		<div class="mb-3">
 			<label for="content" class="form-label">Content</label>
-			<textarea class="form-control" id="content" name="content" required></textarea>
+			<textarea class="form-control" id="content" name="content"></textarea>
+			@if($errors->has('content'))
+				{{-- error message --}}
+				<span class="text-danger">
+					{{ $errors->first('content') }}
+				</span>
+			@endif
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
