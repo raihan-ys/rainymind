@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => true, 'reset' => false]);
 
 // Home Routes
-Route::resource('/', HomeController::class)->name('index', 'home');
-Route::resource('home', HomeController::class)->name('index', 'home');
+Route::get('/', function () {
+    return '<h1>It works!</h1>';
+});
 
 // Post Routes
 Route::prefix('posts')->group(function () {
