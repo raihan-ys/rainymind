@@ -30,15 +30,6 @@
 
 			{{-- created by --}}
 			<input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
-
-	 		{{-- category --}}	
-			<label for="category">Category</label>
-			<select class="form-select" id="category" name="category_id" required>
-				<option value="">Select Category</option>
-				@foreach($categories as $category)
-					<option value="{{ $category->id }}">{{ $category->name }}</option>
-				@endforeach
-			</select>
 				
 			{{-- title --}}
 			<label for="title" class="form-label">Title</label>
@@ -49,6 +40,17 @@
 					{{ $errors->first('title') }}
 				</span>
 			@endif
+		</div>
+
+		<div class="mb-3">
+			{{-- category --}}	
+			<label for="category">Category</label>
+			<select class="form-select" id="category" name="category_id" required>
+				<option value="">Select Category</option>
+				@foreach($categories as $category)
+					<option value="{{ $category->id }}">{{ $category->name }}</option>
+				@endforeach
+			</select>
 		</div>
 
 		{{-- content --}}
