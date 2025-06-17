@@ -19,8 +19,8 @@ class PostController extends Controller
         $posts = Post::join('categories', 'posts.category_id', '=', 'categories.id')
             ->join('users as created_by', 'posts.created_by', '=', 'created_by.id')
             ->select('posts.*', 'categories.name as category_name', 
-                'created_by.name as created_by_name', 
-                'updated_by.name as updated_by_name')
+                'created_by.name as created_by_name'
+            )
             ->orderBy('posts.created_at', 'desc')
             ->paginate(10);
         

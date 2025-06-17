@@ -1,7 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Write Post')
 @section('css')
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/45.2.0/ckeditor5.css"/>
+	<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/45.2.0/ckeditor5.css"/>
+	<style>
+		.ck-editor__editable_inline {
+			min-height: 1000px;
+		}
+	</style>
 @endsection
 
 @section('content')
@@ -46,7 +51,7 @@
 			{{-- category --}}	
 			<label for="category">Category</label>
 			<select class="form-select" id="category" name="category_id" required>
-				<option value="">Select Category</option>
+				<option value="" selected disabled>Select Category</option>
 				@foreach($categories as $category)
 					<option value="{{ $category->id }}">{{ $category->name }}</option>
 				@endforeach

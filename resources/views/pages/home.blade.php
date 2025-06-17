@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Home')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @section('css')
     {{-- Custom CSS --}}
     <style>
@@ -43,9 +43,11 @@
 @section('js')
     {{-- Custom JS --}}
     <script>
+        // CSRF Token setup for AJAX requests
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN':  token
             }
         })
         $(document).ready(function() {
