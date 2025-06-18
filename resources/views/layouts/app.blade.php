@@ -9,6 +9,10 @@
 		<link href="{{ asset('libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 		{{-- Font Awesome js --}}
 		<script src="https://kit.fontawesome.com/fe53c6a58c.js" crossorigin="anonymous"></script>
+		{{-- dataTables CSS --}}
+		<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+		<!-- DataTables Bootstrap 5 CSS -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css">
 		@yield('css')
 	</head>
 	<body>
@@ -17,6 +21,9 @@
 			<div class="container">
 				<a class="navbar-brand" href="{{ route('home') }}">
 					RainyMind
+				</a>
+				<a class="btn btn-primary" href="{{ route('posts.index') }}">
+					<i class="fas fa-blog"></i> Posts
 				</a>
 				@guest
 					<a class="btn btn-outline-primary" href="{{ route('login') }}">
@@ -42,6 +49,10 @@
     <script src="{{ asset('libs/jquery/dist/jquery.min.js') }}"></script>
 		{{-- Bootstrap JS --}}
 		<script src="{{ asset('libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+		{{-- dataTables JS --}}	
+		<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+		<!-- DataTables Bootstrap 5 JS -->
+		<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.min.js"></script>
 		@yield('js')
 	</body>
 </html>

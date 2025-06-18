@@ -3,7 +3,8 @@
 use App\Http\Controllers\{
     AIController,
     HomeController,
-    PostController
+    PostController,
+    UserController
 };
 
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,17 @@ use Illuminate\Support\Facades\Route;
 
 // Unused Routes
 Auth::routes(['register' => true, 'reset' => false]);
+
+// User Routes
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::middleware('auth')->group(function () {
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/{user}/update', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/{user}/delete', [UserController::class, 'destroy'])->name('users.destroy');
+    });
+});
 
 // Home Routes
 Route::resource('/', HomeController::class)->name('index', 'home');
