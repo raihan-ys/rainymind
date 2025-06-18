@@ -2,14 +2,15 @@
 @section('title', 'Users')
 @section('css')
 	<style>
+		/* dataTables style */
 		.dataTables_wrapper .dataTables_paginate .paginate_button {
 			background-color: #007bff;
 			color: #fff !important;
-			border-radius: 4px;
+			border-radius: 5px;
 		}
 		.dataTables_wrapper .dataTables_filter input {
 			border: 1px solid #007bff;
-			border-radius: 4px;
+			border-radius: 5px;
 		}
 	</style>
 @endsection
@@ -53,9 +54,8 @@
 @section('js')
 <script>
 	$(document).ready(function() {
-    $('#usersTable').DataTable({
-			
-		});
+		// Initialize DataTable
+    $('#usersTable').DataTable();
   });
 </script>
 @endsection
