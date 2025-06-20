@@ -6,7 +6,6 @@
 		.dataTables_wrapper .dataTables_paginate .paginate_button {
 			background-color: #007bff;
 			color: #fff !important;
-			border-radius: 5px;
 		}
 		.dataTables_wrapper .dataTables_filter input {
 			border: 1px solid #007bff;
@@ -18,10 +17,10 @@
 @section('content')
 	<h1>
 		<i class="fas fa-users"></i>
-		User Lists
+		Users List
 	</h1>
-	<p>Here you can view or delete registered users. <span class="text-danger">Be cautious when you try to delete a user.</span></p>
-	<table class="table table-striped mt-3 table-bordered" id="usersTable">
+	<p>Here you can view or delete registered users. <span class="text-danger">Be cautious when you try to delete a user!</span></p>
+	<table class="table table-striped mt-3" id="usersTable">
 		<caption>List of users</caption>
 		<thead>
 			<tr>
@@ -38,7 +37,9 @@
 					<td>{{ $user->email }}</td>
 					<td>{{ $user->created_at->format('Y-m-d H:i') }}</td>
 					<td>
+						{{-- view --}}
 						<a class="btn btn-info btn-sm" href="{{ route('users.show', $user) }}"><i class="fas fa-eye"></i></a>
+						{{-- delete --}}
 						<form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline;">
 							@csrf
 							@method('DELETE')

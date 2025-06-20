@@ -22,21 +22,51 @@
 				<a class="navbar-brand" href="{{ route('home') }}">
 					RainyMind
 				</a>
-				<a class="btn btn-primary" href="{{ route('posts.index') }}">
-					<i class="fas fa-blog"></i> Posts
-				</a>
-				@guest
-					<a class="btn btn-outline-primary" href="{{ route('login') }}">
-						<i class="fas fa-key"></i> Login
-					</a>
-				@else
-					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
-						@csrf
-						<button type="submit" class="btn btn-danger">
-							<i class="fas fa-power-off"></i> Logout
-						</button>
-					</form>
-				@endguest
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse navbar-light" id="navbarSupportedContent">
+					{{-- left navbar item --}}
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						{{-- posts --}}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('posts.index') }}">
+								<i class="fas fa-blog"></i> Posts
+							</a>
+						</li>
+						{{-- users --}}
+						@if (Auth::check() && Auth::user()->role === 'admin')
+							<li class="nav-item">
+								<a class="nav-link" href="{{ route('users.index') }}">
+									<i class="fas fa-users"></i> Users
+								</a>
+							</li>
+						@endif
+						{{-- categories --}}
+						<li class="nav-item">
+							<a class="nav-link" href="">
+								<i class="fas fa-tags"></i> Categories
+							</a>
+						</li>
+					</ul>
+					{{-- right navbar item --}}
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							@guest
+								<a class="btn btn-outline-primary" href="{{ route('login') }}">
+									<i class="fas fa-key"></i> Login
+								</a>
+							@else
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+									@csrf
+									<button type="submit" class="btn btn-danger">
+										<i class="fas fa-power-off"></i> Logout
+									</button>
+								</form>
+							@endguest
+						</li>						
+					</ul>
+				</div>
     	</div>
 		</nav>
 

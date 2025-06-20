@@ -24,7 +24,7 @@ class PostController extends Controller
             ->orderBy('posts.created_at', 'desc')
             ->paginate(10);
         
-        return view('posts.index', compact('posts'));
+        return view('pages.posts.index', compact('posts'));
     }
 
     /**
@@ -35,7 +35,7 @@ class PostController extends Controller
         // Fetch categories for the dropdown
         $categories = Category::orderBy('name')->get();
 
-        return view('posts.create', compact('categories'));
+        return view('pages.posts.create', compact('categories'));
     }
 
     /**
@@ -62,7 +62,7 @@ class PostController extends Controller
     public function show(string $id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.show', compact('post'));
+        return view('pages.posts.show', compact('post'));
     }
 
     /**
@@ -72,7 +72,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::orderBy('name')->get();
-        return view('posts.edit', compact('post', 'categories'));
+        return view('pages.posts.edit', compact('post', 'categories'));
     }
 
     /**
